@@ -156,9 +156,9 @@
             <thead>
               <tr>
                 <td></td>
-                <td>1 day ago</td>
-                <td>15 days ago</td>
-                <td>45 days ago</td>
+                <td>1 hour ago</td>
+                <td>2 hours ago</td>
+                <td>3 hours ago</td>
               </tr>
             </thead>
             <tbody>
@@ -263,9 +263,9 @@
             <thead>
               <tr>
                 <td></td>
-                <td>1 day ago</td>
-                <td>15 days ago</td>
-                <td>45 days ago</td>
+                <td>1 hour ago</td>
+                <td>2 hours ago</td>
+                <td>3 hours ago</td>
               </tr>
             </thead>
             <tbody>
