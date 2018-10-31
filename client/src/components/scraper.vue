@@ -241,11 +241,11 @@
               </tr>
               <tr>
                 <td>ERC-20 Tethers</td>
-                <td>{{format(outTether.auth-outTether.notIssued, 'mi')}}</td>
+                <td>-{{format(outTether.notIssued, 'mi')}}</td>
               </tr>
               <tr  style="background: #9dc4e7; font-weight: : 900">
                 <td>Outstanding</td>
-                <td>{{format(tethertotal - (outTether.quar ? outTether.quar : 0) - today.tether['treasury'] - (outTether.auth-outTether.notIssued), 'mi')}}</td>
+                <td>{{format(tethertotal - (outTether.quar ? outTether.quar : 0) - today.tether['treasury'] - (outTether.notIssued), 'mi')}}</td>
               </tr>
             </tbody>
           </table>
@@ -407,7 +407,7 @@ export default {
         return 0;
       if (type == 'mi') {
         num = num / 1000000;
-        return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return num.toFixed(1).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
 
       if (type == 'normal') {
@@ -436,7 +436,7 @@ export default {
   background: #d9d9d9;
 }
 table td {
-  padding: 5px !important;
+  padding: 1px !important;
   text-align: right;
 }
 </style>
