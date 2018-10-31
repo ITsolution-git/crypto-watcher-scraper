@@ -63,16 +63,16 @@ router.get("/scraper-data", async (req, res, next) => {
         // data.day15 = result[2];
         // data.day30 = result[2];
         result.map(item => {
-          if (moment(item.timestamp).isSame(moment(), 'hour')) {
+          if (moment(item.timestamp).isSame(moment().subtract(1, 'hours'), 'hour')) {
             data.today = item;
           }
-          if (moment(item.timestamp).isSame(moment().subtract(1, 'hours'), 'hour')) {
+          if (moment(item.timestamp).isSame(moment().subtract(2, 'hours'), 'hour')) {
             data.day1 = item;
           }
-          if (moment(item.timestamp).isSame(moment().subtract(2, 'hours'), 'hour')) {
+          if (moment(item.timestamp).isSame(moment().subtract(3, 'hours'), 'hour')) {
             data.day15 = item;
           }
-          if (moment(item.timestamp).isSame(moment().subtract(2, 'hours'), 'hours')) {
+          if (moment(item.timestamp).isSame(moment().subtract(4, 'hours'), 'hours')) {
             data.day30 = item;
           }
         })
