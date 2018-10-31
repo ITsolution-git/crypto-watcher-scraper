@@ -228,24 +228,24 @@
             <tbody>
               <tr style="background: #1b4388; color:#d8e74a; ">
                 <td>Issued</td>
-                <td>{{format((tethertotal), 'normal')}}</td>
+                <td>{{format((tethertotal), 'mi')}}</td>
               </tr>
               <tr>
                 <td>Quarantined Tether</td>
-                <td>-{{format(outTether.quar, 'normal')}}</td>
+                <td>-{{format(outTether.quar, 'mi')}}</td>
               </tr>
               
               <tr>
                 <td>Cancelled</td>
-                <td>-{{format(today.tether['treasury'], 'normal')}}</td>
+                <td>-{{format(today.tether['treasury'], 'mi')}}</td>
               </tr>
               <tr>
                 <td>ERC-20 Tethers</td>
-                <td>{{format(outTether.auth-outTether.notIssued, 'normal')}}</td>
+                <td>{{format(outTether.auth-outTether.notIssued, 'mi')}}</td>
               </tr>
               <tr  style="background: #9dc4e7; font-weight: : 900">
                 <td>Outstanding</td>
-                <td>{{format(tethertotal - (outTether.quar ? outTether.quar : 0) - today.tether['treasury'] - (outTether.auth-outTether.notIssued), 'normal')}}</td>
+                <td>{{format(tethertotal - (outTether.quar ? outTether.quar : 0) - today.tether['treasury'] - (outTether.auth-outTether.notIssued), 'mi')}}</td>
               </tr>
             </tbody>
           </table>
@@ -271,9 +271,9 @@
             <tbody>
               <tr style="background: #1b4388; color:#d8e74a; ">
                 <td>Outstanding</td>
-                <td>{{format(tetherHolders.day1, 'normal'), 'mi'}}</td>
-                <td>{{format(tetherHolders.day15, 'normal'), 'mi'}}</td>
-                <td>{{format(tetherHolders.day30, 'normal'), 'mi'}}</td>
+                <td>{{format(tetherHolders.day1, 'mi')}}</td>
+                <td>{{format(tetherHolders.day15, 'mi')}}</td>
+                <td>{{format(tetherHolders.day30, 'mi')}}</td>
               </tr>
               <tr v-for="ex in ['treasury', 'bitfinex', 'binance', 'bittrex', 'huobi', 'kraken', 'poloniex']">
                 <td>{{ex.slice(0,1).toUpperCase() + ex.slice(1)}}</td>
