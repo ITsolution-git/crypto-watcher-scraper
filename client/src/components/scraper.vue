@@ -10,7 +10,15 @@
       ></v-progress-circular>
     </div>
     <v-layout row wrap v-if="!loading">
-      <v-flex xs3 style="padding: 10px">
+      <v-flex xs12 style="padding: 10px">
+        <v-layout wrap align-center>
+           
+          <img src="../img/logo-small.png" alt="" style="width: 50px;height: 50px;margin-right: 10px">
+          <h3>Radar BTC - Tether Monitor</h3> 
+        </v-layout>
+      </v-flex>
+      
+      <v-flex sm12 md3 style="padding: 10px">
         <div class="scraper-table-cont">
           <div style="background: #a9d18d; padding: 10px; margin-bottom: 10px; text-align: center; font-weight: bold">
             Price
@@ -61,49 +69,51 @@
 
 
 
-      <v-flex xs9  style="padding: 10px">
+      <v-flex sm12 md9 style="padding: 10px">
         <div class="scraper-table-cont">
           <div style="background: #a9d18d; padding: 10px; margin-bottom: 10px; text-align: center; font-weight: bold">
             Cold Wallets
           </div>
-          <table class="scraper-table">
-            <thead>
-              <tr>
-                <td>Wallet</td>
-                <td>BTC(coins)</td>
-                <td>ETH(coins)</td>
-                <td>ERC-20(USD-mi)</td>
-                <td>Tether(USD-mi)</td>
-                <td>Sum converted in BTCs</td>
-                <td>Total%</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="ex in ['bitfinex', 'binance', 'bittrex', 'huobi', 'kraken', 'poloniex']">
-                <td>{{ex.slice(0,1).toUpperCase() + ex.slice(1)}}</td>
-                <td>{{format(today.bitcoin[ex], 'normal')}}</td>
-                <td>{{format(today.ethereum[ex], 'normal')}}</td>
-                <td>{{format(today.erc20usd[ex], 'mi')}}</td>
-                <td>{{format(today.tether[ex]  ? today.tether[ex] : 0, 'mi')}}</td>
-                <td style="background: #0d3863; color: #ffffff">{{format(today.sum[ex], 'normal')}}</td>
-                <td>{{format(today.sum[ex]/coldWallet.total.sum*100, 'normal')}}%</td>
-              <tr>
-              <tr style="background: #9dc4e7; font-weight: : 900">
-                <td>Total</td>
-                <td>{{format(coldWallet.total.bitcoin, 'normal')}}</td>
-                <td>{{format(coldWallet.total.ethereum, 'normal')}}</td>
-                <td>{{format(coldWallet.total.erc20usd, 'mi')}}</td>
-                <td>{{format(coldWallet.total.tether, 'mi')}}</td>
-                <td>{{format(coldWallet.total.sum, 'normal')}}</td>
-                <td>{{format(100.00, 'normal')}}%</td>
-              </tr>
-            </tbody>
-          </table>
+          <div style="overflow: auto">
+            <table class="scraper-table">
+              <thead>
+                <tr>
+                  <td>Wallet</td>
+                  <td>BTC(coins)</td>
+                  <td>ETH(coins)</td>
+                  <td>ERC-20(USD-mi)</td>
+                  <td>Tether(USD-mi)</td>
+                  <td>Sum converted in BTCs</td>
+                  <td>Total%</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="ex in ['bitfinex', 'binance', 'bittrex', 'huobi', 'kraken', 'poloniex']">
+                  <td>{{ex.slice(0,1).toUpperCase() + ex.slice(1)}}</td>
+                  <td>{{format(today.bitcoin[ex], 'normal')}}</td>
+                  <td>{{format(today.ethereum[ex], 'normal')}}</td>
+                  <td>{{format(today.erc20usd[ex], 'mi')}}</td>
+                  <td>{{format(today.tether[ex]  ? today.tether[ex] : 0, 'mi')}}</td>
+                  <td style="background: #0d3863; color: #ffffff">{{format(today.sum[ex], 'normal')}}</td>
+                  <td>{{format(today.sum[ex]/coldWallet.total.sum*100, 'normal')}}%</td>
+                <tr>
+                <tr style="background: #9dc4e7; font-weight: : 900">
+                  <td>Total</td>
+                  <td>{{format(coldWallet.total.bitcoin, 'normal')}}</td>
+                  <td>{{format(coldWallet.total.ethereum, 'normal')}}</td>
+                  <td>{{format(coldWallet.total.erc20usd, 'mi')}}</td>
+                  <td>{{format(coldWallet.total.tether, 'mi')}}</td>
+                  <td>{{format(coldWallet.total.sum, 'normal')}}</td>
+                  <td>{{format(100.00, 'normal')}}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </v-flex>
 
 
-      <v-flex xs3 style="padding: 10px">
+      <v-flex sm12 md3 style="padding: 10px">
         <div class="scraper-table-cont">
           <div style="background: #a9d18d; padding: 10px; margin-bottom: 10px; text-align: center; font-weight: bold">
             Tether Discount
@@ -147,7 +157,7 @@
 
 
 
-      <v-flex xs7 style="padding: 10px">
+      <v-flex sm12 md7 style="padding: 10px">
         <div class="scraper-table-cont">
           <div style="background: #a9d18d; padding: 10px; margin-bottom: 10px; text-align: center; font-weight: bold">
             Total Changes in BTC Terms
@@ -180,7 +190,7 @@
       </v-flex>
 
 
-      <v-flex xs2 style="padding: 10px">
+      <v-flex xs12 sm6 md2 style="padding: 10px">
         <div class="scraper-table-cont">
           <div style="background: #a9d18d; padding: 10px; margin-bottom: 10px; text-align: center; font-weight: bold">
             BTC Bitfinex Funding
@@ -213,7 +223,7 @@
 
 
 
-      <v-flex xs4 style="padding: 10px">
+      <v-flex xs12 sm6 md4 style="padding: 10px">
         <div class="scraper-table-cont">
           <div style="background: #a9d18d; padding: 10px; margin-bottom: 10px; text-align: center; font-weight: bold">
             Outstanding Tethers
@@ -254,7 +264,7 @@
 
 
 
-      <v-flex xs7 style="padding: 10px">
+      <v-flex sm12 md7 style="padding: 10px">
         <div class="scraper-table-cont">
           <div style="background: #a9d18d; padding: 10px; margin-bottom: 10px; text-align: center; font-weight: bold">
             Tether Holders
