@@ -12,9 +12,10 @@
     <v-layout row wrap v-if="!loading">
       <v-flex xs12 style="padding: 10px">
         <v-layout wrap align-center>
-           
-          <img src="../img/logo-small.png" alt="" style="width: 50px;height: 50px;margin-right: 10px">
-          <h3>Radar BTC - Tether Monitor</h3> 
+          <a href="https://radarbtc.com.br" target="_blank" style="display: flex;flex-direction: row; align-items: center">
+            <img src="../img/logo-small.png" alt="" style="width: 50px;height: 50px;margin-right: 10px">
+            <h3>Radar BTC - Tether Monitor</h3> 
+          </a>
         </v-layout>
       </v-flex>
       
@@ -90,21 +91,21 @@
               <tbody>
                 <tr v-for="ex in ['bitfinex', 'binance', 'bittrex', 'huobi', 'kraken', 'poloniex']">
                   <td>{{ex.slice(0,1).toUpperCase() + ex.slice(1)}}</td>
-                  <td>{{format(today.bitcoin[ex], 'normal')}}</td>
-                  <td>{{format(today.ethereum[ex], 'normal')}}</td>
-                  <td>{{format(today.erc20usd[ex], 'mi')}}</td>
-                  <td>{{format(today.tether[ex]  ? today.tether[ex] : 0, 'mi')}}</td>
-                  <td style="background: #0d3863; color: #ffffff">{{format(today.sum[ex], 'normal')}}</td>
-                  <td>{{format(today.sum[ex]/coldWallet.total.sum*100, 'normal')}}%</td>
+                  <td>{{format(today.bitcoin[ex], 'normal0')}}</td>
+                  <td>{{format(today.ethereum[ex], 'normal0')}}</td>
+                  <td>{{format(today.erc20usd[ex], 'mi0')}}</td>
+                  <td>{{format(today.tether[ex]  ? today.tether[ex] : 0, 'mi0')}}</td>
+                  <td style="background: #0d3863; color: #ffffff">{{format(today.sum[ex], 'normal0')}}</td>
+                  <td>{{format(today.sum[ex]/coldWallet.total.sum*100, 'normal0')}}%</td>
                 <tr>
                 <tr style="background: #9dc4e7; font-weight: : 900">
                   <td>Total</td>
-                  <td>{{format(coldWallet.total.bitcoin, 'normal')}}</td>
-                  <td>{{format(coldWallet.total.ethereum, 'normal')}}</td>
-                  <td>{{format(coldWallet.total.erc20usd, 'mi')}}</td>
-                  <td>{{format(coldWallet.total.tether, 'mi')}}</td>
-                  <td>{{format(coldWallet.total.sum, 'normal')}}</td>
-                  <td>{{format(100.00, 'normal')}}%</td>
+                  <td>{{format(coldWallet.total.bitcoin, 'normal0')}}</td>
+                  <td>{{format(coldWallet.total.ethereum, 'normal0')}}</td>
+                  <td>{{format(coldWallet.total.erc20usd, 'mi0')}}</td>
+                  <td>{{format(coldWallet.total.tether, 'mi0')}}</td>
+                  <td>{{format(coldWallet.total.sum, 'normal0')}}</td>
+                  <td>{{format(100.00, 'normal0')}}%</td>
                 </tr>
               </tbody>
             </table>
@@ -419,6 +420,10 @@ export default {
         num = num / 1000000;
         return num.toFixed(1).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
+      if (type == 'mi0') {
+        num = num / 1000000;
+        return num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
 
       if (type == 'normal') {
         return num.toFixed(1).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -426,6 +431,11 @@ export default {
 
       if (type == 'normal2') {
         return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
+
+      if (type == 'normal0') {
+        return num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
     }
   },
