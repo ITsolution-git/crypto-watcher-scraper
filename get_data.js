@@ -359,6 +359,7 @@ async function getData() {
 		for (let index = 0; index < finalData.ethereum[ex].length; index ++) {
 			let b = await getERC20Balance(finalData.ethereum[ex][index].address);
 			await wait(1000);
+			console.log(b);
 			finalData.ethereum[ex][index].erc20 = b;
 		}
 	}
