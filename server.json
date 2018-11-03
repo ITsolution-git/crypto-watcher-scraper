@@ -1,7 +1,7 @@
 {
   "name"        : "server",
   "script"      : "./index.js",
-  "watch"       : false,
+  "watch"       : true,
   "env": {
     "DISPLAY": ":9.0"
   },

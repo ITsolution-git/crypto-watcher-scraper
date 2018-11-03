@@ -329,31 +329,31 @@ async function getData() {
 		coinbaseEx.loadMarkets(),
 		bitstampEx.loadMarkets(),
 	]);
-	// for(let ex in finalData.bitcoin) {
-	// 	for (let index = 0; index < finalData.bitcoin[ex].length; index ++) {
-	// 		let b = await getBalance(finalData.bitcoin[ex][index].address, 'BTC');
-	// 		await wait(1000);
-	// 		finalData.bitcoin[ex][index].balance = b;
-	// 	}
-	// }
+	for(let ex in finalData.bitcoin) {
+		for (let index = 0; index < finalData.bitcoin[ex].length; index ++) {
+			let b = await getBalance(finalData.bitcoin[ex][index].address, 'BTC');
+			await wait(1000);
+			finalData.bitcoin[ex][index].balance = b;
+		}
+	}
 
-	// for(let ex in finalData.ethereum) {
-	// 	for (let index = 0; index < finalData.ethereum[ex].length; index ++) {
-	// 		let b = await getBalance(finalData.ethereum[ex][index].address, 'ETH');
-	// 		console.log(b);
-	// 		await wait(1000);
-	// 		finalData.ethereum[ex][index].balance = b;
-	// 	}
-	// }
+	for(let ex in finalData.ethereum) {
+		for (let index = 0; index < finalData.ethereum[ex].length; index ++) {
+			let b = await getBalance(finalData.ethereum[ex][index].address, 'ETH');
+			console.log(b);
+			await wait(1000);
+			finalData.ethereum[ex][index].balance = b;
+		}
+	}
 
-	// for(let ex in finalData.tether) {
-	// 	for (let index = 0; index < finalData.tether[ex].length; index ++) {
-	// 		let b = await getBalance(finalData.tether[ex][index].address, 'USDT');
-	// 		console.log(b);
-	// 		await wait(1000);
-	// 		finalData.tether[ex][index].balance = b;
-	// 	}
-	// }
+	for(let ex in finalData.tether) {
+		for (let index = 0; index < finalData.tether[ex].length; index ++) {
+			let b = await getBalance(finalData.tether[ex][index].address, 'USDT');
+			console.log(b);
+			await wait(1000);
+			finalData.tether[ex][index].balance = b;
+		}
+	}
 
 	for(let ex in finalData.ethereum) {
 		for (let index = 0; index < finalData.ethereum[ex].length; index ++) {
