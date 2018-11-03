@@ -58,24 +58,24 @@ router.get("/scraper-data", async (req, res, next) => {
       .toArray()
       .then(async result => {
         let data = { today: null, day15: null, day30: null };
-        // data.today = result[0];
-        // data.day1 = result[1];
-        // data.day15 = result[2];
-        // data.day30 = result[2];
-        result.map(item => {
-          if (moment(item.timestamp).isSame(moment().subtract(1, 'hours'), 'hour')) {
-            data.today = item;
-          }
-          if (moment(item.timestamp).isSame(moment().subtract(2, 'hours'), 'hour')) {
-            data.day1 = item;
-          }
-          if (moment(item.timestamp).isSame(moment().subtract(3, 'hours'), 'hour')) {
-            data.day15 = item;
-          }
-          if (moment(item.timestamp).isSame(moment().subtract(4, 'hours'), 'hours')) {
-            data.day30 = item;
-          }
-        })
+        data.today = result[result.length-1];
+        data.day1 = result[result.length-2];
+        data.day15 = result[result.length-3];
+        data.day30 = result[result.length-4];
+        // result.map(item => {
+        //   if (moment(item.timestamp).isSame(moment().subtract(1, 'hours'), 'hour')) {
+        //     data.today = item;
+        //   }
+        //   if (moment(item.timestamp).isSame(moment().subtract(2, 'hours'), 'hour')) {
+        //     data.day1 = item;
+        //   }
+        //   if (moment(item.timestamp).isSame(moment().subtract(3, 'hours'), 'hour')) {
+        //     data.day15 = item;
+        //   }
+        //   if (moment(item.timestamp).isSame(moment().subtract(4, 'hours'), 'hours')) {
+        //     data.day30 = item;
+        //   }
+        // })
 
 
         let prices = await Promise.all([
