@@ -1,0 +1,10 @@
+{
+  "name"        : "server",
+  "script"      : "./index.js",
+  "watch"       : false,
+  "env": {
+    "DISPLAY": ":9.0"
+  },
+  "out_file": "/dev/null",
+  "error_file": "/dev/null"
+}
