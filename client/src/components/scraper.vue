@@ -135,18 +135,18 @@
               </tr>
 
               <tr>
-                <td>1 hour ago</td>
+                <td>1 day ago</td>
                 <td>{{format((priceTable1h.coinbase.BTC/priceTable1h.bitfinex.BTC + priceTable1h.coinbase.BTC/priceTable1h.binance.BTC)/2, 'normal2')}}</td>
                 <td>{{format((priceTable1h.coinbase.ETH/priceTable1h.bitfinex.ETH + priceTable1h.coinbase.ETH/priceTable1h.binance.ETH)/2, 'normal2')}}</td>
               </tr>
 
               <tr>
-                <td>1 day ago</td>
+                <td>7 days ago</td>
                 <td>{{format((priceTable1d.coinbase.BTC/priceTable1d.bitfinex.BTC + priceTable1d.coinbase.BTC/priceTable1d.binance.BTC)/2, 'normal2')}}</td>
                 <td>{{format((priceTable1d.coinbase.ETH/priceTable1d.bitfinex.ETH + priceTable1d.coinbase.ETH/priceTable1d.binance.ETH)/2, 'normal2')}}</td>
               </tr>
               <tr>
-                <td>7 days ago</td>
+                <td>15 days ago</td>
                 <td>{{format((priceTable7d.coinbase.BTC/priceTable7d.bitfinex.BTC + priceTable7d.coinbase.BTC/priceTable7d.binance.BTC)/2, 'normal2')}}</td>
                 <td>{{format((priceTable7d.coinbase.ETH/priceTable7d.bitfinex.ETH + priceTable7d.coinbase.ETH/priceTable7d.binance.ETH)/2, 'normal2')}}</td>
               </tr>
@@ -167,9 +167,9 @@
             <thead>
               <tr>
                 <td></td>
-                <td>1 hour ago</td>
-                <td>2 hours ago</td>
-                <td>3 hours ago</td>
+                <td>1 day ago</td>
+                <td>7 days ago</td>
+                <td>15 days ago</td>
               </tr>
             </thead>
             <tbody>
@@ -274,9 +274,9 @@
             <thead>
               <tr>
                 <td></td>
-                <td>1 hour ago</td>
-                <td>2 hours ago</td>
-                <td>3 hours ago</td>
+                <td>1 day ago</td>
+                <td>7 days ago</td>
+                <td>15 days ago</td>
               </tr>
             </thead>
             <tbody>

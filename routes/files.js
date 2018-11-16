@@ -58,159 +58,182 @@ router.get("/scraper-data", async (req, res, next) => {
       .toArray()
       .then(async result => {
         let data = { today: null, day15: null, day30: null };
-        data.today = result[result.length-1];
-        data.day1 = result[result.length-2];
-        data.day15 = result[result.length-3];
-        data.day30 = result[result.length-4];
-        // result.map(item => {
-        //   if (moment(item.timestamp).isSame(moment().subtract(1, 'hours'), 'hour')) {
-        //     data.today = item;
-        //   }
-        //   if (moment(item.timestamp).isSame(moment().subtract(2, 'hours'), 'hour')) {
-        //     data.day1 = item;
-        //   }
-        //   if (moment(item.timestamp).isSame(moment().subtract(3, 'hours'), 'hour')) {
-        //     data.day15 = item;
-        //   }
-        //   if (moment(item.timestamp).isSame(moment().subtract(4, 'hours'), 'hours')) {
-        //     data.day30 = item;
-        //   }
-        // })
+        // data.today = result[result.length-1];
+        // data.day1 = result[result.length-2];
+        // data.day15 = result[result.length-3];
+        // data.day30 = result[result.length-4];
+        result.map(item => {
+          if (moment(item.timestamp).isSame(moment(), 'day')) {
+            data.today = item;
+          }
+          if (moment(item.timestamp).isSame(moment().subtract(1, 'days'), 'day')) {
+            data.day1 = item;
+          }
+          if (moment(item.timestamp).isSame(moment().subtract(7, 'days'), 'day')) {
+            data.day15 = item;
+          }
+          if (moment(item.timestamp).isSame(moment().subtract(15, 'days'), 'day')) {
+            data.day30 = item;
+          }
+        })
 
 
-        let prices = await Promise.all([
-          binanceEx.fetchTicker ('BTC/USDT'),
-          bitfinexEx.fetchTicker ('BTC/USDT'),
-          coinbaseEx.fetchTicker ('BTC/USD'),
-          bitstampEx.fetchTicker ('BTC/USD'),
-          binanceEx.fetchTicker ('ETH/USDT'),
-          bitfinexEx.fetchTicker ('ETH/USDT'),
-          coinbaseEx.fetchTicker ('ETH/USD'),
-          bitstampEx.fetchTicker ('ETH/USD'),
-        ]);
-        data.priceTable = {
-          binance: {
-            BTC: prices[0].ask,
-            ETH: prices[4].ask,
-          },
-          bitfinex: {
-            BTC: prices[1].ask,
-            ETH: prices[5].ask,
-          },
-          coinbase: {
-            BTC: prices[2].ask,
-            ETH: prices[6].ask,
-          },
-          bitstamp: {
-            BTC: prices[3].ask,
-            ETH: prices[7].ask,
-          },
-        }
 
-        prices = await Promise.all([
-          binanceEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
-          bitfinexEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
-          coinbaseEx.fetchTicker ('BTC/USD'),
-          bitstampEx.fetchOHLCV ('BTC/USD', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
-          binanceEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
-          bitfinexEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
-          coinbaseEx.fetchTicker ('ETH/USD'),
-          bitstampEx.fetchOHLCV ('ETH/USD', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
-        ]);
-        data.priceTable1h = {
-          binance: {
-            BTC: prices[0][0][1],
-            ETH: prices[4][0][1],
-          },
-          bitfinex: {
-            BTC: prices[1][0][1],
-            ETH: prices[5][0][1],
-          },
-          coinbase: {
-            BTC: prices[2].ask,
-            ETH: prices[6].ask,
-          },
-          bitstamp: {
-            BTC: prices[3][0][1],
-            ETH: prices[7][0][1],
-          },
-        }
+        data.priceTable = data.today.priceTable;
+        data.priceTable1h = data.day1.priceTable;
+        data.priceTable1d = data.day15.priceTable;
+        data.priceTable7d = data.day30.priceTable;
+        data.priceTable15d = data.day30.priceTable;
 
-
-        prices = await Promise.all([
-          binanceEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
-          bitfinexEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
-          coinbaseEx.fetchTicker ('BTC/USD'),
-          bitstampEx.fetchOHLCV ('BTC/USD', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
-          binanceEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
-          bitfinexEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
-          coinbaseEx.fetchTicker ('ETH/USD'),
-          bitstampEx.fetchOHLCV ('ETH/USD', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
-        ]);
-        data.priceTable1d = {
-          binance: {
-            BTC: prices[0][0][1],
-            ETH: prices[4][0][1],
-          },
-          bitfinex: {
-            BTC: prices[1][0][1],
-            ETH: prices[5][0][1],
-          },
-          coinbase: {
-            BTC: prices[2].ask,
-            ETH: prices[6].ask,
-          },
-          bitstamp: {
-            BTC: prices[3][0][1],
-            ETH: prices[7][0][1],
-          },
-        }
-
-
-        prices = await Promise.all([
-          binanceEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
-          bitfinexEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
-          coinbaseEx.fetchTicker ('BTC/USD'),
-          bitstampEx.fetchOHLCV ('BTC/USD', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
-          binanceEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
-          bitfinexEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
-          coinbaseEx.fetchTicker ('ETH/USD'),
-          bitstampEx.fetchOHLCV ('ETH/USD', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
-        ]);
-        data.priceTable7d = {
-          binance: {
-            BTC: prices[0][0][1],
-            ETH: prices[4][0][1],
-          },
-          bitfinex: {
-            BTC: prices[1][0][1],
-            ETH: prices[5][0][1],
-          },
-          coinbase: {
-            BTC: prices[2].ask,
-            ETH: prices[6].ask,
-          },
-          bitstamp: {
-            BTC: prices[3][0][1],
-            ETH: prices[7][0][1],
-          },
-        }
-
-
-        prices = await Promise.all([
-          binanceEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(15, 'days').unix() * 1000, 1),
-        ]);
-        data.priceTable15d = {
-          bitfinex: {
-            BTC: prices[0][0][1],
-          },
-        }
         let r = await rp({
           uri: 'https://api.coinmarketcap.com/v2/ticker/825/',
           json: true
         })
         data.tethertotal = r.data.total_supply;
         res.status(200).send(data);
+
+
+
+
+
+        // Deprecated
+        // let prices = await Promise.all([
+        //   binanceEx.fetchTicker ('BTC/USDT'),
+        //   bitfinexEx.fetchTicker ('BTC/USDT'),
+        //   coinbaseEx.fetchTicker ('BTC/USD'),
+        //   bitstampEx.fetchTicker ('BTC/USD'),
+        //   binanceEx.fetchTicker ('ETH/USDT'),
+        //   bitfinexEx.fetchTicker ('ETH/USDT'),
+        //   coinbaseEx.fetchTicker ('ETH/USD'),
+        //   bitstampEx.fetchTicker ('ETH/USD'),
+        // ]);
+        // data.priceTable = {
+        //   binance: {
+        //     BTC: prices[0].ask,
+        //     ETH: prices[4].ask,
+        //   },
+        //   bitfinex: {
+        //     BTC: prices[1].ask,
+        //     ETH: prices[5].ask,
+        //   },
+        //   coinbase: {
+        //     BTC: prices[2].ask,
+        //     ETH: prices[6].ask,
+        //   },
+        //   bitstamp: {
+        //     BTC: prices[3].ask,
+        //     ETH: prices[7].ask,
+        //   },
+        // }
+
+        // prices = await Promise.all([
+        //   binanceEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
+        //   bitfinexEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
+        //   coinbaseEx.fetchTicker ('BTC/USD'),
+        //   bitstampEx.fetchOHLCV ('BTC/USD', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
+        //   binanceEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
+        //   bitfinexEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
+        //   coinbaseEx.fetchTicker ('ETH/USD'),
+        //   bitstampEx.fetchOHLCV ('ETH/USD', '1m', moment().subtract(1, 'hours').unix() * 1000, 1),
+        // ]);
+        // data.prices1h = prices;
+        // data.priceTable1h = {
+        //   binance: {
+        //     BTC: prices[0][0][1],
+        //     ETH: prices[4][0][1],
+        //   },
+        //   bitfinex: {
+        //     BTC: prices[1][0][1],
+        //     ETH: prices[5][0][1],
+        //   },
+        //   coinbase: {
+        //     BTC: prices[2].ask,
+        //     ETH: prices[6].ask,
+        //   },
+        //   bitstamp: {
+        //     BTC: prices[3][0][1],
+        //     ETH: prices[7][0][1],
+        //   },
+        // }
+
+
+        // prices = await Promise.all([
+        //   binanceEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
+        //   bitfinexEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
+        //   coinbaseEx.fetchTicker ('BTC/USD'),
+        //   bitstampEx.fetchOHLCV ('BTC/USD', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
+        //   binanceEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
+        //   bitfinexEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
+        //   coinbaseEx.fetchTicker ('ETH/USD'),
+        //   bitstampEx.fetchOHLCV ('ETH/USD', '1m', moment().subtract(1, 'days').unix() * 1000, 1),
+        // ]);
+        // data.prices1d = prices;
+        // data.priceTable1d = {
+        //   binance: {
+        //     BTC: prices[0][0][1],
+        //     ETH: prices[4][0][1],
+        //   },
+        //   bitfinex: {
+        //     BTC: prices[1][0][1],
+        //     ETH: prices[5][0][1],
+        //   },
+        //   coinbase: {
+        //     BTC: prices[2].ask,
+        //     ETH: prices[6].ask,
+        //   },
+        //   bitstamp: {
+        //     BTC: prices[3][0][1],
+        //     ETH: prices[7][0][1],
+        //   },
+        // }
+
+
+        // prices = await Promise.all([
+        //   binanceEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
+        //   bitfinexEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
+        //   coinbaseEx.fetchTicker ('BTC/USD'),
+        //   bitstampEx.fetchOHLCV ('BTC/USD', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
+        //   binanceEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
+        //   bitfinexEx.fetchOHLCV ('ETH/USDT', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
+        //   coinbaseEx.fetchTicker ('ETH/USD'),
+        //   bitstampEx.fetchOHLCV ('ETH/USD', '1m', moment().subtract(7, 'days').unix() * 1000, 1),
+        // ]);
+        // data.prices7d = prices;
+        // data.priceTable7d = {
+        //   binance: {
+        //     BTC: prices[0][0][1],
+        //     ETH: prices[4][0][1],
+        //   },
+        //   bitfinex: {
+        //     BTC: prices[1][0][1],
+        //     ETH: prices[5][0][1],
+        //   },
+        //   coinbase: {
+        //     BTC: prices[2].ask,
+        //     ETH: prices[6].ask,
+        //   },
+        //   bitstamp: {
+        //     BTC: prices[3][0][1],
+        //     ETH: prices[7][0][1],
+        //   },
+        // }
+
+
+        // prices = await Promise.all([
+        //   binanceEx.fetchOHLCV ('BTC/USDT', '1m', moment().subtract(15, 'days').unix() * 1000, 1),
+        // ]);
+        // data.priceTable15d = {
+        //   bitfinex: {
+        //     BTC: prices[0][0][1],
+        //   },
+        // }
+
+        // let r = await rp({
+        //   uri: 'https://api.coinmarketcap.com/v2/ticker/825/',
+        //   json: true
+        // })
+        // data.tethertotal = r.data.total_supply;
+        // res.status(200).send(data);
       });
   });
 });
