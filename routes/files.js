@@ -79,7 +79,35 @@ router.get("/scraper-data", async (req, res, next) => {
 
 
 
-        data.priceTable = data.today.priceTable;
+        let prices = await Promise.all([
+          binanceEx.fetchTicker ('BTC/USDT'),
+          bitfinexEx.fetchTicker ('BTC/USDT'),
+          coinbaseEx.fetchTicker ('BTC/USD'),
+          bitstampEx.fetchTicker ('BTC/USD'),
+          binanceEx.fetchTicker ('ETH/USDT'),
+          bitfinexEx.fetchTicker ('ETH/USDT'),
+          coinbaseEx.fetchTicker ('ETH/USD'),
+          bitstampEx.fetchTicker ('ETH/USD'),
+        ]);
+        data.priceTable = {
+          binance: {
+            BTC: prices[0].ask,
+            ETH: prices[4].ask,
+          },
+          bitfinex: {
+            BTC: prices[1].ask,
+            ETH: prices[5].ask,
+          },
+          coinbase: {
+            BTC: prices[2].ask,
+            ETH: prices[6].ask,
+          },
+          bitstamp: {
+            BTC: prices[3].ask,
+            ETH: prices[7].ask,
+          },
+        }
+
         data.priceTable1h = data.day1.priceTable;
         data.priceTable1d = data.day15.priceTable;
         data.priceTable7d = data.day30.priceTable;
