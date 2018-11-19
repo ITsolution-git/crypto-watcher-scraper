@@ -44,12 +44,12 @@ router.get("/scraper-data", async (req, res, next) => {
   let coinbaseEx = new ccxt['coinbase']();
   let bitstampEx = new ccxt['bitstamp']();
 
-  // await Promise.all([
-  //   binanceEx.loadMarkets(),
-  //   bitfinexEx.loadMarkets(),
-  //   coinbaseEx.loadMarkets(),
-  //   bitstampEx.loadMarkets(),
-  // ]);
+  await Promise.all([
+    binanceEx.loadMarkets(),
+    bitfinexEx.loadMarkets(),
+    coinbaseEx.loadMarkets(),
+    bitstampEx.loadMarkets(),
+  ]);
   MongoClient.connect(URL, function(err, db) {
     if (err) throw err;
     var collection = db.collection("files");
@@ -91,20 +91,20 @@ router.get("/scraper-data", async (req, res, next) => {
         ]);
         data.priceTable = {
           binance: {
-            BTC: prices[0].ask,
-            ETH: prices[4].ask,
+            BTC: prices[0].last,
+            ETH: prices[4].last,
           },
           bitfinex: {
-            BTC: prices[1].ask,
-            ETH: prices[5].ask,
+            BTC: prices[1].last,
+            ETH: prices[5].last,
           },
           coinbase: {
-            BTC: prices[2].ask,
-            ETH: prices[6].ask,
+            BTC: prices[2].last,
+            ETH: prices[6].last,
           },
           bitstamp: {
-            BTC: prices[3].ask,
-            ETH: prices[7].ask,
+            BTC: prices[3].last,
+            ETH: prices[7].last,
           },
         }
 
