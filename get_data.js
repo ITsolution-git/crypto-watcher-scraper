@@ -19,6 +19,8 @@ addresses = {
 			address: '1NDyJtNTjmwk5xPNhjgAMu4HDHigtobu1s',
 		},{
 			address: '34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo',
+		},{
+			address: '34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo'
 		}],
 		bitfinex: [{
 			address: '3D2oetdNuZUqQHPJmcMDDHYoqkyNVsFk9r',
