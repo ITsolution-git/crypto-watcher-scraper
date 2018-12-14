@@ -54,28 +54,30 @@ router.get("/scraper-data", async (req, res, next) => {
     if (err) throw err;
     var collection = db.collection("files");
     collection
-      .find({})
+      .find().sort({timestamp: -1}).limit(5)
+      // .find({ timestamp: { $gte: new Date(moment().subtract(16, 'days').format()) }} )
       .toArray()
       .then(async result => {
+        console.log(result);
         let data = { today: null, day15: null, day30: null };
-        // data.today = result[result.length-1];
-        // data.day1 = result[result.length-2];
-        // data.day15 = result[result.length-3];
-        // data.day30 = result[result.length-4];
-        result.map(item => {
-          if (moment(item.timestamp).isSame(moment(), 'day')) {
-            data.today = item;
-          }
-          if (moment(item.timestamp).isSame(moment().subtract(1, 'days'), 'day')) {
-            data.day1 = item;
-          }
-          if (moment(item.timestamp).isSame(moment().subtract(7, 'days'), 'day')) {
-            data.day15 = item;
-          }
-          if (moment(item.timestamp).isSame(moment().subtract(15, 'days'), 'day')) {
-            data.day30 = item;
-          }
-        })
+        data.today = result[result.length-1];
+        data.day1 = result[result.length-2];
+        data.day15 = result[result.length-3];
+        data.day30 = result[result.length-4];
+        // result.map(item => {
+        //   if (moment(item.timestamp).isSame(moment(), 'day')) {
+        //     data.today = item;
+        //   }
+        //   if (moment(item.timestamp).isSame(moment().subtract(1, 'days'), 'day')) {
+        //     data.day1 = item;
+        //   }
+        //   if (moment(item.timestamp).isSame(moment().subtract(7, 'days'), 'day')) {
+        //     data.day15 = item;
+        //   }
+        //   if (moment(item.timestamp).isSame(moment().subtract(15, 'days'), 'day')) {
+        //     data.day30 = item;
+        //   }
+        // })
 
 
 

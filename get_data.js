@@ -417,7 +417,7 @@ async function getData() {
 
 var cron = require('node-cron');
 
-cron.schedule('0 0 */4 * * *', () => {
+cron.schedule('0 0 */8 * * *', () => {
   console.log('running a task every 4 hr');
   getData();
 });
